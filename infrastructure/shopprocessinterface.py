@@ -1,26 +1,25 @@
 from abc import abstractmethod
 from typing import Generic, Sized, TypeVar
-from infrastructure.content import Item, Passenger, RouteQueue 
+from infrastructure.content import Item, Passenger, RouteQueue, T_Passenger, T_RouteLoader 
 
-class IShopProcessing(object):
+class IPassengerConsumer(object):
 
   @abstractmethod 
-  def process(self,passenger:Passenger) -> Passenger:
+  def comsumer(self,passenger:T_Passenger) -> T_RouteLoader:
     pass
 
+class IShoppingBeginner(object):
+  @abstractmethod
+  def begin()->None:
+    pass   
 
-class IShopProcessingBeginner(object):
-  
-  @abstractmethod 
-  def process(self) -> None:
-    pass
+class IConsumerRouteDirecter(object):
 
-class IRouteDirecter(object):
-
-  def __init__(self,targetQueue:RouteQueue,shopProcessing:IShopProcessing):
+  def __init__(self,targetQueue:RouteQueue,passengerConsumer:IPassengerConsumer):
     self.targetQueue:RouteQueue
-    self.shopProcessing:IShopProcessing
+    self.passengerConsumer:IPassengerConsumer
     
   @abstractmethod 
   def monitorQueue(self) -> None:
     pass
+

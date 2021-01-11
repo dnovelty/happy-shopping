@@ -1,10 +1,11 @@
 
-from infrastructure.content import T_Passenger
-from infrastructure.shopprocessinterface import IRouteDirecter
+from typing import Iterable, List
+from infrastructure.content import Passenger, T_Passenger
+from infrastructure.shopprocessinterface import IConsumerRouteDirecter, IProducterRouteDirecter
 from infrastructure.executerpool import processingPool
 
 
-class PerElementNewProcessingRouteDirecterImpl(IRouteDirecter):
+class PerElementNewProcessingRouteDirecterImpl(IConsumerRouteDirecter):
 
     def monitorQueue(self):
         while True:
@@ -12,5 +13,14 @@ class PerElementNewProcessingRouteDirecterImpl(IRouteDirecter):
             with processingPool as pool:
                 pool.apply_async(self.newProcessingToProcess(passenger))
 
+    
+
     def newProcessingToProcess(self,passenger:T_Passenger) -> None:
-        self.shopProcessing.process(passenger)
+       loader = self.passengerConsumer.comsumer(passenger)
+       nextQueue = loader.route
+       passenger = loader.passenger
+       nextQueue.put(passenger)
+
+
+
+ 

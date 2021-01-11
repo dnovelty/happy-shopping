@@ -1,14 +1,24 @@
 
 from concurrent import futures
-from concurrent.futures.process import ProcessPoolExecutor
-from typing import Any, Callable, TypeVar
+from concurrent.futures.process import ProcessPoolExecutor 
+from concurrent.futures import ThreadPoolExecutor
+
  
 
 
-processingPool = ProcessPoolExecutor().submit
-_T = TypeVar("_T")
+
 
 class ProcessingPool(ProcessPoolExecutor):
     def submit(self, fn, *args, **kwargs):
         with self:
           return super().submit(fn, *args, **kwargs)
+
+processingPool = ProcessingPool()
+
+
+class ThreadingPool(ThreadPoolExecutor):
+    def submit(self, fn, *args, **kwargs):
+        with self:
+          return super().submit(fn, *args, **kwargs)
+
+threadingPool = ThreadingPool(max_workers=20)

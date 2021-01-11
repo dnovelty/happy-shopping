@@ -14,8 +14,7 @@ class Content(object):
     pass
 
 class Passenger(object):
-    def __init__(self):
-        self.route:RouteQueue
+    def __init__(self,items:List[T_Item],content:Content):
         self.items:List[T_Item]
         self.content:Content
 
@@ -36,5 +35,12 @@ class RouteQueue(Enum):
     self.queue.put(val)
 
 
+
+class RouteLoader(object):
+    def __init__(self,route:RouteQueue,passenger:Passenger):
+        self.route:RouteQueue
+        self.passenger:Passenger
+
+T_RouteLoader = TypeVar("T_RouteLoader",bound=RouteLoader)
 
 
