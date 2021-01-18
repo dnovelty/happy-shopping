@@ -1,4 +1,7 @@
+from requests.sessions import session
 from infrastructure.timeutil import timestamp
+from  xiaomi.session import session
+
 '''
 登录服务
 '''
@@ -13,4 +16,6 @@ class LoginService(object):
     pass
 
   def doLogin(self):
-    pass
+    response = session.get(self.loginUrl) 
+    response.json()
+    pass 
