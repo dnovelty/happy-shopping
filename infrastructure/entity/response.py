@@ -1,0 +1,2 @@
+class ResponseEntity(object):
+    pass

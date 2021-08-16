@@ -1,0 +1,2 @@
+class RequestEntity(object):
+    pass
