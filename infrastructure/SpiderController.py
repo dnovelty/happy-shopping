@@ -3,20 +3,21 @@ from infrastructure import responsedispatcher
 from infrastructure.entity.request import RequestEntity
 from multiprocessing.queues import Queue
 import scrapy
-from myqueue import requestQueue
 
 class RequestGate(scrapy.Spider):
     name = 'sending request and getting response spider controller'
     
-    needSendingRequestQueue:Queue[RequestEntity] = None
     responseDispatcher:IResponseDispatcher = None
+    start_request = None
+    def __init__(self, name=None, **kwargs):
+        super().__init__(name=name, **kwargs) 
     
     def start_requests(self):
-        return super().start_requests()
+        return self.start_request
     
     def parse(self, response, **kwargs):
         while True:
             requestEntity = None
             responseEntity = None
-            requestEntity = self.responseDispatcher.dispatch(responseEntity)
+            requestEntity = RequestGate.responseDispatcher.dispatch(responseEntity)
             yield requestEntity

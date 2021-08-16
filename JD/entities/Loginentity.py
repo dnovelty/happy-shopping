@@ -2,4 +2,6 @@ from infrastructure.entity.request import RequestEntity
 
 
 class LoginEntity(RequestEntity):
-    pass 
+    def __init__(self) -> None:
+        super().__init__()
+        self.login_success = False
