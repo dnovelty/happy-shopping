@@ -1,0 +1,7 @@
+__pycache__/
+.idea/
+cookies/
+.vscode
+*.log
+*.png
+*.log.*
