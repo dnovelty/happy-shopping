@@ -12,7 +12,8 @@ from scrapy.utils.log import configure_logging
 
 executor = ThreadPoolExecutor()
 configure_logging({'LOG_FORMAT': '%(levelname)s: %(message)s'})
-runner = CrawlerRunner(get_project_settings())  
+settings = get_project_settings()
+runner = CrawlerRunner(settings)  
 dispatcher = JDResponseDispatcher()
 RequestGate.responseDispatcher=dispatcher
 loginSpider = LoginSpider()

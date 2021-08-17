@@ -6,14 +6,9 @@ import scrapy
 from scrapy.crawler import CrawlerRunner
 from scrapy.utils.log import configure_logging
 
-from spiders.ItemFactoryWorker import ItemFactoryWorker
-from spiders.MultiStockSpider import MultiStockSpider
-from spiders.SessionSpider import SessionSpider
 executor = ThreadPoolExecutor()
 configure_logging({'LOG_FORMAT': '%(levelname)s: %(message)s'})
 runner = CrawlerRunner(get_project_settings())
-MultiStockSpider.up_stream_queue = ItemFactoryWorker.item_producted_quque
-runner.crawl(ItemFactoryWorker)
 # runner.crawl(SessionSpider)
 # runner.crawl(MultiStockSpider)
 d = runner.join()
